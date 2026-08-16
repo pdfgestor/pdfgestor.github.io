@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDFGestor — Ferramentas de PDF Vitalício | Celular e PC</title>
+  <meta name="description" content="PDFGestor: unir, separar, comprimir, assinar, marca d'água e 12+ ferramentas de PDF. Acesso vitalício, sem mensalidade, sem anúncios, funciona offline. Compre no Mercado Livre ou pelo WhatsApp." />
+  <link rel="icon" href="images/pdfgestor-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1e3a5f;
+      --primary-dark: #152a46;
+      --accent: #0e7490;
+      --gold: #d97706;
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --success: #047857;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Inter", -apple-system, Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 64px 0 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(600px 300px at 85% -20%, rgba(14,116,144,.35), transparent 70%);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-size: clamp(34px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 720px;
+    }
+    h1 .hl { color: #7dd3fc; }
+    header p.lead {
+      margin-top: 18px;
+      font-size: 18px;
+      color: rgba(255,255,255,.85);
+      max-width: 620px;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform .15s cubic-bezier(.23,1,.32,1), box-shadow .15s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary {
+      background: #fbbf24;
+      color: #1e293b;
+      box-shadow: 0 8px 24px rgba(251,191,36,.35);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,.14);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.35);
+    }
+    .btn-whats {
+      background: var(--success);
+      color: #fff;
+    }
+
+    /* Promise strip */
+    .strip {
+      background: var(--card);
+      border-bottom: 1px solid #e2e8f0;
+      padding: 22px 0;
+    }
+    .strip .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px;
+      align-items: center;
+    }
+    .strip .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .strip .dot {
+      width: 26px; height: 26px;
+      border-radius: 8px;
+      background: #e0f2fe;
+      color: var(--accent);
+      display: grid; place-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Section */
+    section { padding: 64px 0; }
+    h2 {
+      font-size: clamp(26px, 3.4vw, 36px);
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .sub { color: var(--muted); font-size: 17px; max-width: 640px; }
+
+    /* Phone mockups */
+    .prints {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      padding: 16px 4px 8px;
+      scroll-snap-type: x mandatory;
+    }
+    .phone {
+      flex: 0 0 auto;
+      width: 260px;
+      background: var(--card);
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 12px;
+      box-shadow: 0 12px 32px rgba(30,58,95,.12);
+      scroll-snap-align: start;
+    }
+    .phone img {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+    }
+    .phone .cap {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* Tools grid */
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+    .tool {
+      background: var(--card);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tool .ico {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: #e0f2fe;
+      color: var(--accent);
+      display: grid; place-items: center;
+      font-size: 18px;
+    }
+    .tool strong { font-size: 15px; color: var(--primary); }
+    .tool span { font-size: 13px; color: var(--muted); }
+    .tool .lote {
+      margin-top: auto;
+      align-self: flex-start;
+      background: #dcfce7;
+      color: var(--success);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    /* Appeal */
+    .appeal {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      border-radius: 28px;
+      padding: 48px 40px;
+      margin: 8px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .appeal::before {
+      content: "";
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(251,191,36,.25), transparent 70%);
+    }
+    .appeal h3 { font-size: 28px; font-weight: 800; margin-bottom: 14px; }
+    .appeal p { color: rgba(255,255,255,.85); max-width: 680px; margin-bottom: 12px; }
+    .appeal .cta-row { margin-top: 26px; }
+
+    /* Price cards */
+    .buy {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 32px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid #e2e8f0;
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(30,58,95,.08);
+    }
+    .card h4 { color: var(--primary); font-size: 20px; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,.75);
+      padding: 36px 0;
+      font-size: 14px;
+    }
+    footer a { color: #7dd3fc; text-decoration: none; }
+    .foot {
+      display: flex; flex-wrap: wrap; gap: 22px; justify-content: space-between; align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="badge">🔒 ACESSO VITALÍCIO · 100% OFFLINE APÓS ATIVAR</div>
+    <h1>Todas as ferramentas de <span class="hl">PDF</span> no seu celular e PC, pagando <span class="hl">uma vez só</span>.</h1>
+    <p class="lead">Unir, separar, comprimir, assinar, marca d'água e muito mais — direto no seu aparelho, sem mensalidade, sem anúncios e sem enviar seus arquivos para a internet.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://www.mercadolivre.com.br/pdfgestor/up/MLBU4769979072?pdp_filters=item_id:MLB5074609859" target="_blank" rel="noopener">
+        🛒 Comprar no Mercado Livre
+      </a>
+      <a class="btn btn-whats" href="https://wa.me/5522988195993?text=Ol%C3%A1!%20Quero%20comprar%20o%20PDFGestor" target="_blank" rel="noopener">
+        💬 Comprar pelo WhatsApp
+      </a>
+      <a class="btn btn-secondary" href="#prints">📱 Ver o app funcionando</a>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="container">
+    <div class="grid">
+      <div class="item"><div class="dot">🔑</div> Pagamento único, uso para sempre</div>
+      <div class="item"><div class="dot">📢</div> Zero anúncios, para sempre</div>
+      <div class="item"><div class="dot">🌐</div> Funciona offline após ativar</div>
+      <div class="item"><div class="dot">🛡️</div> Seus arquivos nunca saem do aparelho</div>
+    </div>
+  </div>
+</div>
+
+<section id="prints">
+  <div class="container">
+    <h2>O PDFGestor de verdade, rodando no celular</h2>
+    <p class="sub">Capturas reais do aplicativo. Uma chave de ativação vale para 3 aparelhos e funciona vitaliciamente.</p>
+    <div class="prints">
+      <div class="phone"><img src="images/print-home.png" alt="PDFGestor — Tela inicial" /><div class="cap">Tela inicial</div></div>
+      <div class="phone"><img src="images/print-unir.png" alt="PDFGestor — Unir PDFs" /><div class="cap">Unir PDFs</div></div>
+      <div class="phone"><img src="images/print-comprimir.png" alt="PDFGestor — Comprimir em lote" /><div class="cap">Comprimir (em lote)</div></div>
+      <div class="phone"><img src="images/print-marca.png" alt="PDFGestor — Marca d'água" /><div class="cap">Marca d'água (em lote)</div></div>
+      <div class="phone"><img src="images/print-imgpdf.png" alt="PDFGestor — Imagens para PDF" /><div class="cap">Imagens → PDF</div></div>
+      <div class="phone"><img src="images/print-separar.png" alt="PDFGestor — Separar páginas" /><div class="cap">Separar páginas</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--card); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+  <div class="container">
+    <h2>16 ferramentas, tudo em um só lugar</h2>
+    <p class="sub">Do dia a dia do escritório ao edital, prova de concurso e trabalho da faculdade.</p>
+    <div class="tools">
+      <div class="tool"><div class="ico">⊞</div><strong>Unir PDFs</strong><span>Vários arquivos em um só</span></div>
+      <div class="tool"><div class="ico">✂</div><strong>Separar páginas</strong><span>Extraia o que precisar</span></div>
+      <div class="tool"><div class="ico">▼</div><strong>Comprimir</strong><span>Reduza o tamanho<span class="lote">EM LOTE</span></span></div>
+      <div class="tool"><div class="ico">✎</div><strong>Assinar PDF</strong><span>Texto, desenho ou imagem</span></div>
+      <div class="tool"><div class="ico">🖼</div><strong>Imagens → PDF</strong><span>Fotos para um PDF</span></div>
+      <div class="tool"><div class="ico">◉</div><strong>Marca d'água</strong><span>Texto e numeração<span class="lote">EM LOTE</span></span></div>
+      <div class="tool"><div class="ico">🔒</div><strong>Proteger com senha</strong><span>Criptografia 128-bit</span></div>
+      <div class="tool"><div class="ico">🗜</div><strong>PDF → Imagens</strong><span>Cada página em JPG/PNG</span></div>
+      <div class="tool"><div class="ico">📄</div><strong>Word → PDF</strong><span>Converta .docx</span></div>
+      <div class="tool"><div class="ico">𝐓</div><strong>Texto → PDF</strong><span>Digite e gere um A4</span></div>
+      <div class="tool"><div class="ico">↻</div><strong>Rotacionar</strong><span>Gire páginas</span></div>
+      <div class="tool"><div class="ico">🗑</div><strong>Remover páginas</strong><span>Exclua as que não quer</span></div>
+      <div class="tool"><div class="ico">⇅</div><strong>Organizar páginas</strong><span>Reordene e duplique</span></div>
+      <div class="tool"><div class="ico">＋</div><strong>Inserir páginas</strong><span>Emende outro PDF</span></div>
+      <div class="tool"><div class="ico">⑅</div><strong>Cabeçalho/Rodapé</strong><span>Número de página</span></div>
+      <div class="tool"><div class="ico">✱</div><strong>Metadados</strong><span>Título e autor</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="appeal">
+      <h3>Por que pagar vitalício? Porque isso ajuda a criar mais ferramentas.</h3>
+      <p><strong>Sem mensalidade, sem taxa escondida, sem renovação.</strong> Você paga uma vez e usa para sempre — inclusive depois que o WhatsApp do vendedor sumir da sua vida, rs.</p>
+      <p>A cada compra, o projeto cresce: novas ferramentas, melhorias e mais apps úteis para o dia a dia de quem trabalha e estuda no Brasil. Se o PDFGestor te ajudou, você já ajuda a criar o próximo.</p>
+      <p style="color:#fde68a; font-weight:700;">E o melhor: nenhum arquivo seu sai do seu aparelho. Tudo é processado localmente, offline.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://www.mercadolivre.com.br/pdfgestor/up/MLBU4769979072?pdp_filters=item_id:MLB5074609859" target="_blank" rel="noopener">
+          🛒 Comprar no Mercado Livre
+        </a>
+        <a class="btn btn-whats" href="https://wa.me/5522988195993?text=Ol%C3%A1!%20Quero%20comprar%20o%20PDFGestor" target="_blank" rel="noopener">
+          💬 Comprar pelo WhatsApp (22) 98819-5993
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="comprar" style="background: var(--card); border-top: 1px solid #e2e8f0;">
+  <div class="container">
+    <h2>Como comprar</h2>
+    <p class="sub">Escolha o canal que preferir. Em qualquer um, você recebe a chave de ativação vitalícia na hora.</p>
+    <div class="buy">
+      <div class="card">
+        <h4>🛒 Mercado Livre</h4>
+        <p>Compre com a segurança do Mercado Livre, receba a chave por mensagem e ative em até 3 aparelhos. Pagamento único, vitalício.</p>
+        <a class="btn btn-primary" href="https://www.mercadolivre.com.br/pdfgestor/up/MLBU4769979072?pdp_filters=item_id:MLB5074609859" target="_blank" rel="noopener">Ir para o anúncio</a>
+      </div>
+      <div class="card">
+        <h4>💬 WhatsApp</h4>
+        <p>Chama no WhatsApp, combina a forma de pagamento, recebe sua chave na hora e ativa em 1 minuto. Suporte direto com o criador.</p>
+        <a class="btn btn-whats" href="https://wa.me/5522988195993?text=Ol%C3%A1!%20Quero%20comprar%20o%20PDFGestor" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>© 2026 PDFGestor — Ferramentas de PDF para celular e PC. Acesso vitalício, sem anúncios.</div>
+      <div><a href="https://saulomgg.github.io/" target="_blank" rel="noopener">Site do desenvolvedor</a> · <a href="https://wa.me/5522988195993" target="_blank" rel="noopener">Suporte WhatsApp</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
